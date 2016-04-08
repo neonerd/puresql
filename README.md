@@ -17,7 +17,7 @@ puresql takes a path to a .sql file containing query definitions and turns them 
 ## Quickstart
 
 user.sql
-```
+```sql
 -- name: get_by_id
 SELECT *
 FROM user
@@ -39,7 +39,7 @@ WHERE id = :? OR id = :?
 ```
 
 basic.js
-```
+```js
 'use strict';
 
 var mysql = require("mysql")
@@ -80,21 +80,21 @@ puresql query definitions can contain both named (:parameter) and anonymous (:?)
 Arrays are automatically converted into their SQL representation.
 
 Named parameter:
-```
+```js
 // SELECT * FROM user WHERE id = :id
 queries.get_by_id({id:1}, adapter)
 // SELECT * FROM user WHERE id = 1
 ```
 
 Unnamed parameters:
-```
+```js
 // SELECT * FROM user WHERE id = :? OR id = :?
 queries.get_or({'?':[1, 2]}. adapter)
 // SELECT * FROM user WHERE id = 1 OR id = 2
 ```
 
 Array:
-```
+```js
 // SELECT * FROM user WHERE id IN :ids
 queries.get_by_ids({ids:[1, 2, 3, 4]})
 // SELECT * FROM user WHERE id IN (1, 2, 3, 4)
@@ -104,7 +104,7 @@ queries.get_by_ids({ids:[1, 2, 3, 4]})
 
 With generators or async/await, we can now take our SQL functions and use them in a sync-like way, avoiding the callback / .then() hell.
 
-```
+```js
 // Use our queries in a generator-based workflow
 co(function*(){
 
@@ -124,7 +124,7 @@ co(function*(){
 
 As Koa uses generator-based workflow by default, puresql works out-of-box there too!
 
-```
+```js
 var koa = require("koa")
 // Create a simple server
 var app = koa()
@@ -148,7 +148,7 @@ puresql exposes these functions:
 
 Parses provided file and returns an object literal in {queryName:fn} format.
 
-```
+```js
 var queries = puresql.loadQueries('user.sql')
 console.log(queries)
 
@@ -166,7 +166,7 @@ console.log(queries)
 
 Returns a query function based on the provided string representation.
 
-```
+```js
 var query = puresql.defineQuery("SELECT * FROM user WHERE id = :id")
 ```
 
@@ -174,7 +174,7 @@ var query = puresql.defineQuery("SELECT * FROM user WHERE id = :id")
 
 Returns a mySQL adapter. Takes connection object from 'mysql' module as parameter.
 
-```
+```js
 // create a connection the adapter will use
 var connection = mysql.createConnection({
   host : '192.168.99.100',
