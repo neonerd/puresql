@@ -89,7 +89,7 @@ queries.get_by_id({id:1}, adapter)
 Unnamed parameters:
 ```js
 // SELECT * FROM user WHERE id = :? OR id = :?
-queries.get_or({'?':[1, 2]}. adapter)
+queries.get_or({'?':[1, 2]}, adapter)
 // SELECT * FROM user WHERE id = 1 OR id = 2
 ```
 
