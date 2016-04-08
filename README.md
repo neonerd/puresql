@@ -142,7 +142,7 @@ app.listen(3000)
 
 ## Security
 
-puresql automatically escapes the provided parameters using the adapter's escape function. The bundled adapters all use underlying driver's to escape safely. You should pay attention to properly implementing escaping when providing your own adapter.
+puresql automatically escapes the provided parameters using the adapter's escape function. The bundled adapters all use underlying drivers to escape safely. You should pay attention to properly implementing escaping when providing your own adapter.
 
 ## API
 
