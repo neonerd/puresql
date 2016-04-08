@@ -89,6 +89,22 @@ describe('query parser', () => {
 
   })
 
+  it('should throw an error when passing wrong number of named parameters', ()=>{
+
+    expect(()=>{
+      parser.parseQuery({id:1}, "SELECT * FROM user WHERE id = :id AND rights = :rights", adapter)
+    }).to.throw()
+
+  })
+
+  it('should throw an error when passing wrong number of anonymous parameters', ()=>{
+
+    expect(()=>{
+      parser.parseQuery({'?':[1]}, "SELECT * FROM user WHERE id = :? AND rights = :?", adapter)
+    }).to.throw()
+
+  })
+
 })
 
 // FILE PARSER
