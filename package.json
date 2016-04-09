@@ -1,6 +1,6 @@
 {
   "name": "puresql",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "SQL library for node.js inspired by Clojure's yesql",
   "main": "index.js",
   "scripts": {
@@ -13,5 +13,8 @@
     "co": "^4.6.0",
     "mocha": "^2.4.5",
     "mysql": "^2.10.2"
+  },
+  "dependencies": {
+    "pg-format": "^1.0.2"
   }
 }
