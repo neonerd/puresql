@@ -4,6 +4,31 @@
 
 puresql is an ES6/7 ready SQL library for node.js, heavily inspired by Clojure's yesql.
 
+## Intro
+
+SQL is a great [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) itself. Why abstract it and do this:
+
+```js
+var db = initDb(options)
+var query = db.select('*').from('user').where('id', '=', 1)
+```
+
+When you can do this:
+
+```sql
+-- user.sql
+-- name: get_by_id
+SELECT *
+FROM user
+WHERE id = :id
+```
+
+```js
+// something.js
+var db = puresql.loadQueries('user.sql')
+var query = db.get_user_by_id({id:1}, adapter)
+```
+
 ## Installation
 
 ```
@@ -13,6 +38,8 @@ npm install puresql
 ## Usage
 
 puresql takes a path to a .sql file containing query definitions and turns them into promisified functions. You can then call them and either pass one of the provided adapters (mySQL), or your own adapter (see one of the existing ones on the structure).
+
+Alternatively, you can define individual queries manually via the exposed ```puresql.defineQuery(str)``` function.
 
 ## Quickstart
 
@@ -79,6 +106,8 @@ puresql query definitions can contain both named (:parameter) and anonymous (:?)
 
 Arrays are automatically converted into their SQL representation.
 
+If query function doesn't get all the parameters it needs, it throw an error.
+
 Named parameter:
 ```js
 // SELECT * FROM user WHERE id = :id
@@ -96,8 +125,15 @@ queries.get_or({'?':[1, 2]}, adapter)
 Array:
 ```js
 // SELECT * FROM user WHERE id IN :ids
-queries.get_by_ids({ids:[1, 2, 3, 4]})
+queries.get_by_ids({ids:[1, 2, 3, 4]}, adapter)
 // SELECT * FROM user WHERE id IN (1, 2, 3, 4)
+```
+
+Parameter validation:
+```js
+// SELECT * FROM user WHERE position = :position AND division = :division
+queries.get_by_position_and_division({position:'manager'}, adapter)
+// Throws an error
 ```
 
 ## ES 6/7
