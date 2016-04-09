@@ -4,15 +4,20 @@
   "description": "SQL library for node.js inspired by Clojure's yesql",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive"
+    "test": "mocha --recursive",
+    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec"
   },
   "author": "Andrej Sykora",
   "license": "MIT",
   "devDependencies": {
     "chai": "^3.5.0",
     "co": "^4.6.0",
+    "coveralls": "^2.11.9",
+    "istanbul": "^0.4.3",
     "mocha": "^2.4.5",
-    "mysql": "^2.10.2"
+    "mysql": "^2.10.2",
+    "pg": "^4.5.3",
+    "sqlite3": "^3.1.3"
   },
   "dependencies": {
     "pg-format": "^1.0.2"
