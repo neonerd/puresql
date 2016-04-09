@@ -146,4 +146,11 @@ describe('query factory', ()=>{
 
   })
 
+  it('should return a funtion that fail if adapter is not provided', ()=>{
+    let query = queryFactory.makeQuery("SELECT * FROM user")
+    expect(()=>{
+      query({})
+    }).to.throw()
+  })
+
 })
