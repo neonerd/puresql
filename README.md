@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/neonerd/puresql.svg?branch=master)](https://travis-ci.org/neonerd/puresql)
 [![Dependency Status](https://david-dm.org/neonerd/puresql.svg)](https://david-dm.org/neonerd/puresql)
 [![Coverage Status](https://coveralls.io/repos/github/neonerd/puresql/badge.svg?branch=master)](https://coveralls.io/github/neonerd/puresql?branch=master)
+[![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 puresql is an ES6/7 ready SQL library for node.js, heavily inspired by Clojure's [yesql](https://github.com/krisajenkins/yesql).
 
