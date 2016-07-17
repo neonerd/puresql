@@ -132,6 +132,13 @@ queries.get_by_ids({ids:[1, 2, 3, 4]}, adapter)
 // SELECT * FROM user WHERE id IN (1, 2, 3, 4)
 ```
 
+Sub-arrays:
+```js
+// INSERT INTO user (name) VALUES :values
+queries.create_users({values: [['john'], ['mark']]}, adapter)
+// INSERT INTO user (name) VALUES ("john"), ("mark")
+```
+
 Parameter validation:
 ```js
 // SELECT * FROM user WHERE position = :position AND division = :division
