@@ -76,7 +76,7 @@ describe('query parser', () => {
   it('should process recursive array parameter correctly', () => {
     expect(
       parser.parseQuery({users: [['john', 'doe'], ['foo', 'bar']]}, 'INSERT INTO user (name, surname) VALUES :users', adapter)
-    ).to.equal('INSERT INTO user (name, surname) VALUES ("john", "doe"), ("foo", "bar")')
+    ).to.equal('INSERT INTO user (name, surname) VALUES (john, doe), (foo, bar)')
   })
 
   it('should throw an error when passing wrong number of named parameters', () => {
