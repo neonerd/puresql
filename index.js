@@ -7,7 +7,7 @@
 * Licensed under MIT license
 */
 
-'use strict';
+'use strict'
 
 var file = require('./lib/file')
 var query = require('./lib/query')
@@ -15,13 +15,13 @@ var query = require('./lib/query')
 module.exports = {
 
   // define a single query based on the passed sql string
-  defineQuery : function(sql) {
+  defineQuery: function (sql) {
     return query.makeQuery(sql)
   },
   // define multiple queries based on a single file
-  loadQueries : function(filePath) {
+  loadQueries: function (filePath) {
     let queries = file.parseFile(filePath)
-    for(let key of Object.keys(queries)) {
+    for (let key of Object.keys(queries)) {
       queries[key] = query.makeQuery(queries[key])
     }
     return queries
@@ -29,11 +29,11 @@ module.exports = {
 
   // readymade adapters
   // usage: require('puresql').adapters.mysql(mysqlConnection)
-  adapters : {
+  adapters: {
     // mySQL using 'mysql' module
-    mysql : require("./lib/adapters/mysql"),
+    mysql: require('./lib/adapters/mysql'),
     // dummy adapter for testing purposes
-    test : require("./lib/adapters/test")
+    test: require('./lib/adapters/test')
   }
 
 }
