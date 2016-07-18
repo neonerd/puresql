@@ -7,6 +7,9 @@
     "test": "mocha --recursive",
     "coverage": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --recursive -R spec"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "author": "Andrej Sykora",
   "license": "MIT",
   "devDependencies": {
