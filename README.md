@@ -146,6 +146,29 @@ queries.get_by_position_and_division({position:'manager'}, adapter)
 // Throws an error
 ```
 
+Dangerous parameters (unescaped):
+```js
+// SELECT * FROM user ORDER BY :!order
+queries.get_users({'!order': 'id ASC'}, adapter)
+// SELECT * FROM user ORDER BY id ASC
+```
+
+## Dynamic parameters
+
+When building parts of query dynamically (i.e. table filtering), you can use the dynamic (~) parameter type.
+
+```js
+// SELECT * FROM user WHERE :~conditions
+queries.search_users({'~conditions':{
+  operator: 'AND',
+  parts: [
+    ['position = :position', {position: 'manager'}],
+    ['division = :division', {division: 'division'}]
+  ]
+}})
+// SELECT * FROM user WHERE position = "manager" AND division = "division"
+```
+
 ## ES 6/7
 
 With generators or async/await, we can now take our SQL functions and use them in a sync-like way, avoiding the callback / .then() hell.
