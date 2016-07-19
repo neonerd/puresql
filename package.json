@@ -1,11 +1,14 @@
 {
   "name": "puresql",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "SQL library for node.js inspired by Clojure's yesql",
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive",
     "coverage": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --recursive -R spec"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   },
   "author": "Andrej Sykora",
   "license": "MIT",

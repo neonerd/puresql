@@ -79,6 +79,26 @@ describe('query parser', () => {
     ).to.equal('INSERT INTO user (name, surname) VALUES (john, doe), (foo, bar)')
   })
 
+  it('should process a dynamic parameter correctly', () => {
+    expect(
+      parser.parseQuery({
+        '~conditions': {
+          operator: 'AND',
+          parts: [
+            ['position = :position', {position: 'manager'}],
+            ['division = :division', {division: 'sales'}]
+          ]
+        }
+      }, 'SELECT * FROM user WHERE :~conditions', adapter)
+    ).to.equal('SELECT * FROM user WHERE position = manager AND division = sales')
+  })
+
+  it('should process a dangerous parameter correctly', () => {
+    expect(
+      parser.parseQuery({'!order':'id ASC'}, 'SELECT * FROM user ORDER BY :!order', adapter)
+    ).to.equal('SELECT * FROM user ORDER BY id ASC')
+  })
+
   it('should throw an error when passing wrong number of named parameters', () => {
     expect(() => {
       parser.parseQuery({id: 1}, 'SELECT * FROM user WHERE id = :id AND rights = :rights', adapter)
