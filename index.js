@@ -32,6 +32,8 @@ module.exports = {
   adapters: {
     // mySQL using 'mysql' module
     mysql: require('./lib/adapters/mysql'),
+    // SQLite using 'sqlite3' module
+    sqlite: require('./lib/adapters/sqlite'),
     // dummy adapter for testing purposes
     test: require('./lib/adapters/test')
   }
