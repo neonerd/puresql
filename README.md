@@ -248,6 +248,9 @@ var query = puresql.defineQuery("SELECT * FROM user WHERE id = :id")
 Returns a mySQL adapter. Takes connection object from 'mysql' module as parameter.
 
 ```js
+// dependencies
+const mysql = require('mysql')
+const puresql = require('puresql')
 // create a connection the adapter will use
 var connection = mysql.createConnection({
   host : '192.168.99.100',
@@ -258,6 +261,19 @@ var connection = mysql.createConnection({
 })
 // create the adapter
 var adapter = puresql.adapters.mysql(connection)
+```
+
+### puresql.adapters.sqlite(db)
+
+Returns an SQLite adapter. Takes a db object from 'sqlite3' module as parameter.
+
+```js
+// dependencies
+const sqlite3 = require('sqlite3')
+const puresql = require('puresql')
+// create the db adapter will use
+var db = new sqlite3.Database(':memory:')
+var adapter = puresql.adapters.sqlite(db)
 ```
 
 ### puresql.adapters.test()
