@@ -174,6 +174,7 @@ queries.search_users({'~conditions':{
 With generators or async/await, we can now take our SQL functions and use them in a sync-like way, avoiding the callback / .then() hell.
 
 ```js
+// ES6 (node.js >4)
 // Use our queries in a generator-based workflow
 co(function*(){
 
@@ -187,6 +188,12 @@ co(function*(){
   console.log(error)
 
 })
+
+// ES2015 (node.js >8)
+async function test () {
+  const rows = await queries.get_all({}, adapter)
+  console.log(rows)
+}
 ```
 
 ## Koa
