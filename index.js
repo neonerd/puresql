@@ -1,6 +1,6 @@
 /**
 * puresql
-* v 1.0.0
+* v 1.2.0
 * Functional SQL abstraction for node.js (>4.0.0)
 * Inspired by yesql (https://github.com/krisajenkins/yesql)
 * Andrej Sykora <as@andrejsykora.com>
