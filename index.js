@@ -3,8 +3,9 @@
 * v 1.2.0
 * Functional SQL abstraction for node.js (>4.0.0)
 * Inspired by yesql (https://github.com/krisajenkins/yesql)
-* Andrej Sykora <as@andrejsykora.com>
-* Licensed under MIT license
+* Repository: https://github.com/neonerd/puresql
+* Author: Andrej Sykora <as@andrejsykora.com>
+* License: MIT License
 */
 
 'use strict'
