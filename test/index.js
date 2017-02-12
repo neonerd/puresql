@@ -94,7 +94,7 @@ describe('query parser', () => {
   it('should process object array parameter correctly (update modifier)', () => {
     expect(
       parser.parseQuery({'@user': {name: 'john', surname: 'doe'}}, 'UPDATE user SET :@user{name, surname}', adapter)
-    ).to.equal('UPDATE user SET name = john, surname = doe')
+    ).to.equal('UPDATE user SET `name` = john, `surname` = doe')
   })
 
   it('should process a dynamic parameter correctly', () => {
