@@ -163,6 +163,20 @@ queries.get_users({'!order': 'id ASC'}, adapter)
 // SELECT * FROM user ORDER BY id ASC
 ```
 
+Object parameters (insert):
+```js
+// INSERT INTO user (name, surname) VALUES :#user
+queries.insert_user({'#user': {name: 'John', surname: 'Doe'}}, adapter)
+// INSERT INTO user (name, surname) VALUES ('John', 'Doe')
+```
+
+Object parameters (update):
+```js
+// UPDATE user SET :@user
+queries.insert_user({'@user': {name: 'John', surname: 'Doe'}}, adapter)
+// UPDATE user SET name = 'John', surname = 'Doe'
+```
+
 ## Dynamic parameters
 
 When building parts of query dynamically (i.e. table filtering), you can use the dynamic (~) parameter type.
