@@ -109,7 +109,17 @@ puresql query definitions can contain both named (:parameter) and anonymous (:?)
 
 Arrays are automatically converted into their SQL representation.
 
-If query function doesn't get all the parameters it needs, it throw an error.
+If query function doesn't get all the parameters it needs, it throws an error.
+
+Named parameters support modifiers. Cheatsheet:
+
+|Modifier|Name|Example|Input|Output|
+|---|---|---|---|---|
+|(blank)|Normal parameter|:id|1|1|
+|!|Dangerous parameter|:!order|ORDER ASC|ORDER ASC|
+|#|Object parameter (insert)|:#user{name,rights}|{name:'foo', rights:'bar'}|('foo', 'bar')|
+|@|Object parameter (update)|:#user{name,rights}|{name:'foo', rights:'bar'}|name = 'foo', rights = 'bar'|
+|~|Dynamic conditions|:~conditions|see bellow|see bellow|
 
 Named parameter:
 ```js

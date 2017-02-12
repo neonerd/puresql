@@ -61,6 +61,12 @@ describe('query parser', () => {
     ).to.equal('SELECT * FROM user WHERE id = 1')
   })
 
+  it('should replace multiple occurences of the same named parameter correctly', () => {
+    expect(
+      parser.parseQuery({id: 1}, 'SELECT * FROM user WHERE id = :id AND uid = :id', adapter)
+    ).to.equal('SELECT * FROM user WHERE id = 1 AND uid = 1')
+  })
+
   it('should process anonymous parameters correctly', () => {
     expect(
       parser.parseQuery({'?': [1, 2]}, 'SELECT * FROM user WHERE id = :? OR id = :?', adapter)
@@ -79,6 +85,18 @@ describe('query parser', () => {
     ).to.equal('INSERT INTO user (name, surname) VALUES (john, doe), (foo, bar)')
   })
 
+  it('should process object array parameter correctly (insert modifier)', () => {
+    expect(
+      parser.parseQuery({'#user': {name: 'john', surname: 'doe'}}, 'INSERT INTO user (name, surname) VALUES :#user{name, surname}', adapter)
+    ).to.equal('INSERT INTO user (name, surname) VALUES (john, doe)')
+  })
+
+  it('should process object array parameter correctly (update modifier)', () => {
+    expect(
+      parser.parseQuery({'@user': {name: 'john', surname: 'doe'}}, 'UPDATE user SET :@user{name, surname}', adapter)
+    ).to.equal('UPDATE user SET name = john, surname = doe')
+  })
+
   it('should process a dynamic parameter correctly', () => {
     expect(
       parser.parseQuery({
@@ -95,7 +113,7 @@ describe('query parser', () => {
 
   it('should process a dangerous parameter correctly', () => {
     expect(
-      parser.parseQuery({'!order':'id ASC'}, 'SELECT * FROM user ORDER BY :!order', adapter)
+      parser.parseQuery({'!order': 'id ASC'}, 'SELECT * FROM user ORDER BY :!order', adapter)
     ).to.equal('SELECT * FROM user ORDER BY id ASC')
   })
 
