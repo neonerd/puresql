@@ -87,7 +87,7 @@ describe('query parser', () => {
 
   it('should process object array parameter correctly (insert modifier)', () => {
     expect(
-      parser.parseQuery({'#user': {name: 'john', surname: 'doe'}}, 'INSERT INTO user (name, surname) VALUES :#user{name, surname}', adapter)
+      parser.parseQuery({'$user': {name: 'john', surname: 'doe'}}, 'INSERT INTO user (name, surname) VALUES :$user{name, surname}', adapter)
     ).to.equal('INSERT INTO user (name, surname) VALUES (john, doe)')
   })
 

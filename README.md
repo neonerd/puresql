@@ -117,7 +117,7 @@ Named parameters support modifiers. Cheatsheet:
 |---|---|---|---|---|
 |(blank)|Normal parameter|:id|1|1|
 |!|Dangerous parameter|:!order|ORDER ASC|ORDER ASC|
-|#|Object parameter (insert)|:#user{name,rights}|{name:'foo', rights:'bar'}|('foo', 'bar')|
+|$|Object parameter (insert)|:#user{name,rights}|{name:'foo', rights:'bar'}|('foo', 'bar')|
 |@|Object parameter (update)|:#user{name,rights}|{name:'foo', rights:'bar'}|name = 'foo', rights = 'bar'|
 |~|Dynamic conditions|:~conditions|see bellow|see bellow|
 
@@ -165,8 +165,8 @@ queries.get_users({'!order': 'id ASC'}, adapter)
 
 Object parameters (insert):
 ```js
-// INSERT INTO user (name, surname) VALUES :#user
-queries.insert_user({'#user': {name: 'John', surname: 'Doe'}}, adapter)
+// INSERT INTO user (name, surname) VALUES :$user
+queries.insert_user({'$user': {name: 'John', surname: 'Doe'}}, adapter)
 // INSERT INTO user (name, surname) VALUES ('John', 'Doe')
 ```
 
