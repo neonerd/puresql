@@ -97,6 +97,12 @@ describe('query parser', () => {
     ).to.equal('UPDATE user SET `name` = john, `surname` = doe')
   })
 
+  it('should process an object array parameter with array correctly', () => {
+    expect(
+      parser.parseQuery({'$user': [{name: 'john', surname: 'doe'}, {name: 'doe', surname: 'john'}]}, 'INSERT INTO user (name, surname) VALUES :$user{name, surname}', adapter)
+    ).to.equal('INSERT INTO user (name, surname) VALUES (john, doe), (doe, john)')
+  })
+
   it('should process a dynamic parameter correctly', () => {
     expect(
       parser.parseQuery({
