@@ -274,7 +274,7 @@ Returns a query function based on the provided string representation.
 var query = puresql.defineQuery("SELECT * FROM user WHERE id = :id")
 ```
 
-### puresql.adapters.mysql(mysqlConnection)
+### puresql.adapters.mysql(mysqlConnection, debugFn)
 
 Returns a mySQL adapter. Takes connection object from 'mysql' module as parameter.
 
@@ -294,7 +294,17 @@ var connection = mysql.createConnection({
 var adapter = puresql.adapters.mysql(connection)
 ```
 
-### puresql.adapters.sqlite(db)
+This adapter can optionally take debugFn function as a parameter. This function will receive the processed query before it runs.
+
+This adapter exposes the lastInsertId value on itself.
+
+```js
+await queries.insert({data:['foo', 'bar']}, mysqlAdapter)
+console.log(mysqlAdapter.lastInsertId)
+// should output the ID of the last inserted row if possible
+```
+
+### puresql.adapters.sqlite(db, debugFn)
 
 Returns an SQLite adapter. Takes a db object from 'sqlite3' module as parameter.
 
@@ -306,6 +316,26 @@ const puresql = require('puresql')
 var db = new sqlite3.Database(':memory:')
 var adapter = puresql.adapters.sqlite(db)
 ```
+
+This adapter can optionally take debugFn function as a parameter. This function will receive the processed query before it runs.
+
+### puresql.adapters.mssql(mssqlConnection, debugFn)
+
+Returns a SQL Server adapter. Takes a connection object from 'mssql' module as parameter.
+
+```js
+// dependencies
+const mssql = require('mssql')
+const puresql = require('puresql')
+// create a connection the adapter will use
+mssql.connect(CREDENTIALS)
+.then(function () {
+  // create the adapter
+  var adapter = puresql.adapters.mssql(mssql)
+})
+```
+
+This adapter can optionally take debugFn function as a parameter. This function will receive the processed query before it runs.
 
 ### puresql.adapters.test()
 
