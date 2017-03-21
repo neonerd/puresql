@@ -45,10 +45,12 @@ describe('puresql.adapters.pg', () => {
   })
 
   it('should process a query correctly', (done) => {
-    adapter.query('SELECT 1 AS foo')
-    .then((rows) => {
-      expect(rows[0]['foo']).to.equal(1)
-      done()
+    connection.connect((err) => {
+      adapter.query('SELECT 1 AS foo')
+      .then((rows) => {
+        expect(rows[0]['foo']).to.equal(1)
+        done()
+      })
     })
   })
 
