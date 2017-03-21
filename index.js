@@ -35,8 +35,10 @@ module.exports = {
     mysql: require('./lib/adapters/mysql'),
     // SQLite using 'sqlite3' module
     sqlite: require('./lib/adapters/sqlite'),
-    // msSQL experimental adapter (NOT SAFE)
+    // msSQL experimental adapter using 'mssql' module
     mssql: require('./lib/adapters/mssql'),
+    // Postgres experimental adapter using 'pg' module
+    pg: require('./lib/adapters/pg'),
     // dummy adapter for testing purposes
     test: require('./lib/adapters/test')
   }

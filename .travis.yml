@@ -6,7 +6,9 @@ node_js:
   - "4"
 before_script:
   - mysql -e 'create database puresql_test;'
+  - psql -c 'create database puresql_test;' -U postgres
 after_script:
   - npm run coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
 services:
   - mysql
+  - postgresql
