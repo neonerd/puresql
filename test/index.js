@@ -85,22 +85,28 @@ describe('query parser', () => {
     ).to.equal('INSERT INTO user (name, surname) VALUES (john, doe), (foo, bar)')
   })
 
-  it('should process object array parameter correctly (insert modifier)', () => {
+  it('should process object parameter correctly (insert modifier)', () => {
     expect(
       parser.parseQuery({'$user': {name: 'john', surname: 'doe'}}, 'INSERT INTO user (name, surname) VALUES :$user{name, surname}', adapter)
     ).to.equal('INSERT INTO user (name, surname) VALUES (john, doe)')
   })
 
-  it('should process object array parameter correctly (update modifier)', () => {
+  it('should process object parameter correctly (update modifier)', () => {
     expect(
       parser.parseQuery({'@user': {name: 'john', surname: 'doe'}}, 'UPDATE user SET :@user{name, surname}', adapter)
     ).to.equal('UPDATE user SET `name` = john, `surname` = doe')
   })
 
-  it('should process an object array parameter with array correctly', () => {
+  it('should process an object parameter with array correctly', () => {
     expect(
       parser.parseQuery({'$user': [{name: 'john', surname: 'doe'}, {name: 'doe', surname: 'john'}]}, 'INSERT INTO user (name, surname) VALUES :$user{name, surname}', adapter)
     ).to.equal('INSERT INTO user (name, surname) VALUES (john, doe), (doe, john)')
+  })
+
+  it('should process schemaless object parameter correctly (insert modifier)', () => {
+    expect(
+      parser.parseQuery({'$user': {name: 'john', surname: 'doe'}}, 'INSERT INTO user (name, surname) VALUES :$user', adapter)
+    ).to.equal('INSERT INTO user (name, surname) VALUES (john, doe)')
   })
 
   it('should process a dynamic parameter correctly', () => {
