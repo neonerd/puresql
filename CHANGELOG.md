@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.0
+
+- added the pg (PostgreSQL) adapter
+- removed the strict mode and stopped support node 4 / 5
+
 ## 1.3.0
 
 - introduced debugging to all adapters
