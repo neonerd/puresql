@@ -2,8 +2,6 @@ language: node_js
 node_js:
   - "7"
   - "6"
-  - "5"
-  - "4"
 before_script:
   - mysql -e 'create database puresql_test;'
   - psql -c 'create database puresql_test;' -U postgres
