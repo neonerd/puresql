@@ -338,6 +338,25 @@ mssql.connect(CREDENTIALS)
 
 This adapter can optionally take debugFn function as a parameter. This function will receive the processed query before it runs.
 
+### puresql.adapters.pg(pgConnection, debugFn)
+
+Returns a PostgreSQL adapter. Takes a client instance from 'pg' module as parameter.
+
+```js
+// dependencies
+const pg = require('pg')
+const puresql = require('puresql')
+// create a connection the adapter will use
+const client = new pg.Client(config)
+// create the adapter
+const adapter = puresql.adapters.pg(client)
+pg.connect((err) => {
+  // do something
+})
+```
+
+This adapter can optionally take debugFn function as a parameter. This function will receive the processed query before it runs.
+
 ### puresql.adapters.test()
 
 Returns a testing adapter. This adapter always returns the parsed SQL query (with parameters replaced by passed values) as a result.
