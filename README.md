@@ -1,5 +1,6 @@
 # puresql
 
+[![npm version](https://badge.fury.io/js/puresql.svg)](https://badge.fury.io/js/puresql)
 [![Build Status](https://travis-ci.org/neonerd/puresql.svg?branch=master)](https://travis-ci.org/neonerd/puresql)
 [![Dependency Status](https://david-dm.org/neonerd/puresql.svg)](https://david-dm.org/neonerd/puresql)
 [![Coverage Status](https://coveralls.io/repos/github/neonerd/puresql/badge.svg?branch=master)](https://coveralls.io/github/neonerd/puresql?branch=master)
