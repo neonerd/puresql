@@ -44,6 +44,12 @@ describe('puresql.adapters.pg', () => {
     expect(adapter.escape("john' OR 'michael'")).to.equal("'john'' OR ''michael'''")
   })
 
+  it('should handle sql injection test cases correctly', () => {
+    expect(adapter.escape('john -- \n DROP TABLE users;')).to.equal("'john -- \n DROP TABLE users;'")
+    expect(adapter.escape('0x457578 OR 1=1')).to.equal("'0x457578 OR 1=1'")
+    expect(adapter.escape(0x457578)).to.equal(4552056)
+  })
+
   it('should process a query correctly', (done) => {
     connection.connect((err) => {
       adapter.query('SELECT 1 AS foo')
