@@ -16,3 +16,11 @@ WHERE id IN :ids
 SELECT *
 FROM user
 WHERE id = :? OR id = :?
+
+-- name: get_with_comment
+SELECT *
+-- here I do something
+FROM user
+-- another comment
+-- breaking comment with name: something
+WHERE id IN :ids

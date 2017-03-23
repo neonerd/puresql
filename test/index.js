@@ -41,7 +41,7 @@ describe('puresql', () => {
     expect(queries.get_by_id).to.be.a('function')
     queries.get_all({}, adapter)
     .then((result) => {
-      expect(result).to.equal('SELECT * FROM user')
+      expect(result).to.equal('SELECT *\nFROM user')
       done()
     })
   })
@@ -148,14 +148,15 @@ describe('file parser', () => {
     let queries = file.parseFile(FILE_SQL_MULTIPLE)
 
     expect(queries).to.be.an('object')
-    expect(queries.get_by_id).to.equal('SELECT * FROM user WHERE id = :id')
-    expect(queries.get_all).to.equal('SELECT * FROM user')
+    expect(queries.get_by_id).to.equal('SELECT *\nFROM user\nWHERE id = :id')
+    expect(queries.get_all).to.equal('SELECT *\nFROM user')
+    expect(queries.get_with_comment).to.equal('SELECT *\n-- here I do something\nFROM user\n-- another comment\n-- breaking comment with name: something\nWHERE id IN :ids')
   })
 
   it('should process single command file correctly', () => {
     let queries = file.parseFile(FILE_SQL_SINGLE)
     expect(queries).to.be.an('object')
-    expect(queries.single).to.equal('SELECT * FROM user')
+    expect(queries.single).to.equal('SELECT *\nFROM user')
   })
 
   it('should throw an error with improperly formatted file', () => {
