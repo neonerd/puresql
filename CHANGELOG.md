@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.4.2
+
+- fixed a problem with comments breaking SQL file parsing
+- added a custom error that is thrown if unknown named parameters are passed to a query
+
+## 1.4.1
+
+- fixed a problem with pg adapter both rejecting and resolving at the same time
+
 ## 1.4.0
 
 - added the pg (PostgreSQL) adapter
