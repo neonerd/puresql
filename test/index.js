@@ -129,9 +129,15 @@ describe('query parser', () => {
     ).to.equal('SELECT * FROM user ORDER BY id ASC')
   })
 
-  it('should throw an error when passing wrong number of named parameters', () => {
+  it('should throw an error when not passing all named parameters', () => {
     expect(() => {
       parser.parseQuery({id: 1}, 'SELECT * FROM user WHERE id = :id AND rights = :rights', adapter)
+    }).to.throw()
+  })
+
+  it('should throw an error when passing too many named parameters', () => {
+    expect(() => {
+      parser.parseQuery({id: 1, rights: 1, foo: 1}, 'SELECT * FROM user WHERE id = :id AND rights = :rights', adapter)
     }).to.throw()
   })
 
