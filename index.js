@@ -10,8 +10,8 @@
 
 'use strict'
 
-var file = require('./lib/file')
-var query = require('./lib/query')
+const file = require('./lib/file')
+const query = require('./lib/query')
 
 module.exports = {
 
@@ -21,8 +21,8 @@ module.exports = {
   },
   // define multiple queries based on a single file
   loadQueries: function (filePath) {
-    let queries = file.parseFile(filePath)
-    for (let key of Object.keys(queries)) {
+    const queries = file.parseFile(filePath)
+    for (const key of Object.keys(queries)) {
       queries[key] = query.makeQuery(queries[key])
     }
     return queries
