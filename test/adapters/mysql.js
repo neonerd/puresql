@@ -61,4 +61,9 @@ describe('puresql.adapters.mysql', () => {
   it('should throw a query error correctly', () => {
     expect(adapter.query('SELECT 1 A foo')).to.be.rejected
   })
+
+  it('should escape an identifier correctly', () => {
+    expect(adapter.escapeIdentifier('id')).to.equal('`id`')
+  })
+
 })
