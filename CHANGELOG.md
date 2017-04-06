@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.0
+
+- update modifier now correctly escapes identifiers
+
 ## 1.4.2
 
 - fixed a problem with comments breaking SQL file parsing
