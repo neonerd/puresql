@@ -114,15 +114,15 @@ If query function doesn't get all the parameters it needs, it throws an error.
 
 Named parameters support modifiers. Cheatsheet:
 
-|Modifier|Name|Example|Input|Output|
-|---|---|---|---|---|
-|(blank)|Normal parameter|:id|1|1|
-|!|Dangerous parameter|:!order|ORDER ASC|ORDER ASC|
-|$|Object parameter (insert)|:$user{name,rights}|{name:'foo', rights:'bar'}|('foo', 'bar')|
-|@|Object parameter (update)|:@user{name,rights}|{name:'foo', rights:'bar'}|name = 'foo', rights = 'bar'|
-|$ or @|Object parameter (schemaless)|:$user|{name:'foo', rights:'bar', somethingElse: 'test'}|('foo', 'bar', 'test')|
-|*|Conditioned parameter (EXPERIMENTAL)|:\*limit{LIMIT \*}|10|LIMIT 10 (if '\*limit' parameter is not undefined)|
-|~|Dynamic conditions|:~conditions|see bellow|see bellow|
+|Modifier|Name|Example|Input|Output|Is sanitized?|
+|---|---|---|---|---|---|
+|(blank)|Normal parameter|:id|1|1|Yes|
+|!|Dangerous parameter|:!order|ORDER ASC|ORDER ASC|No|
+|$|Object parameter (insert)|:$user{name,rights}|{name:'foo', rights:'bar'}|('foo', 'bar')|Yes|
+|@|Object parameter (update)|:@user{name,rights}|{name:'foo', rights:'bar'}|name = 'foo', rights = 'bar'|Yes|
+|$ or @|Object parameter (schemaless)|:$user|{name:'foo', rights:'bar', somethingElse: 'test'}|('foo', 'bar', 'test')|Yes|
+|*|Conditioned parameter (EXPERIMENTAL)|:\*limit{LIMIT \*}|10|LIMIT 10 (if '\*limit' parameter is not undefined)|No|
+|~|Dynamic conditions|:~conditions|see bellow|see bellow|Not applicable|
 
 Named parameter:
 ```js
