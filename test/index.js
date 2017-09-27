@@ -146,6 +146,19 @@ describe('query parser', () => {
       parser.parseQuery({'?': [1]}, 'SELECT * FROM user WHERE id = :? AND rights = :?', adapter)
     }).to.throw()
   })
+
+  it('should execute conditioned part only when parameter is present', () => {
+    expect(
+      parser.parseQuery({'*limit': 10}, 'SELECT * FROM user ORDER BY id :*limit{LIMIT *}', adapter)
+    ).to.equal('SELECT * FROM user ORDER BY id LIMIT 10')
+  })
+
+  it('should not execute the conditioned part when parameter is not present, yet proceed with the quer', () => {
+    expect(
+      parser.parseQuery({}, 'SELECT * FROM user ORDER BY id :*limit{LIMIT *}', adapter)
+    ).to.equal('SELECT * FROM user ORDER BY id ')
+  })
+
 })
 
 // FILE PARSER

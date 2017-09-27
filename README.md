@@ -121,6 +121,7 @@ Named parameters support modifiers. Cheatsheet:
 |$|Object parameter (insert)|:$user{name,rights}|{name:'foo', rights:'bar'}|('foo', 'bar')|
 |@|Object parameter (update)|:@user{name,rights}|{name:'foo', rights:'bar'}|name = 'foo', rights = 'bar'|
 |$ or @|Object parameter (schemaless)|:$user|{name:'foo', rights:'bar', somethingElse: 'test'}|('foo', 'bar', 'test')|
+|*|Conditioned parameter (EXPERIMENTAL)|:\*limit{LIMIT \*}|10|LIMIT 10 (if '\*limit' parameter is not undefined)|
 |~|Dynamic conditions|:~conditions|see bellow|see bellow|
 
 Named parameter:
