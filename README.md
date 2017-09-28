@@ -183,7 +183,7 @@ queries.insert_user({'@user': {name: 'John', surname: 'Doe'}}, adapter)
 Concitioned parameters:
 ```js
 // SELECT * FROM user ORDER BY name :*limit{LIMIT *!}
-queries.get_users({'*limi': 10}, adapter)
+queries.get_users({'*limit': 10}, adapter)
 queries.get_users({}, adapter)
 // SELECT * FROM user ORDER BY name LIMIT 10
 // SELECT * FROM user ORDER BY name
