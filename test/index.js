@@ -153,6 +153,12 @@ describe('query parser', () => {
     ).to.equal('SELECT * FROM user ORDER BY id LIMIT 10')
   })
 
+  it('should properly execute conditioned part when using escaped parameter', () => {
+    expect(
+      parser.parseQuery({'*name': 'John Doe'}, 'SELECT * FROM user WHERE 1=1 :*name{AND name = *}', adapter)
+    ).to.equal('SELECT * FROM user WHERE 1=1 AND name = John Doe')
+  })
+
   it('should not execute the conditioned part when parameter is not present, yet proceed with the quer', () => {
     expect(
       parser.parseQuery({}, 'SELECT * FROM user ORDER BY id :*limit{LIMIT *}', adapter)

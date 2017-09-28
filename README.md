@@ -180,6 +180,15 @@ queries.insert_user({'@user': {name: 'John', surname: 'Doe'}}, adapter)
 // UPDATE user SET name = 'John', surname = 'Doe'
 ```
 
+Concitioned parameters:
+```js
+// SELECT * FROM user ORDER BY name :*limit{LIMIT *!}
+queries.get_users({'*limi': 10}, adapter)
+queries.get_users({}, adapter)
+// SELECT * FROM user ORDER BY name LIMIT 10
+// SELECT * FROM user ORDER BY name
+```
+
 ## Dynamic parameters
 
 When building parts of query dynamically (i.e. table filtering), you can use the dynamic (~) parameter type.
