@@ -8,13 +8,15 @@
 
 puresql is an ES6/7 ready SQL library for node.js, heavily inspired by Clojure's [yesql](https://github.com/krisajenkins/yesql).
 
+Note: This README is aimed at Node 8.0.0 and higher and does not contain examples for generator-based workflow. See README_OLD.md for the previous version of documentation.
+
 ## Intro
 
 SQL is a great [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) itself. Why abstract it and do this:
 
 ```js
-var db = initDb(options)
-var query = db.select('*').from('user').where('id', '=', 1)
+const db = initDb(options)
+const query = db.select('*').from('user').where('id', '=', 1)
 ```
 
 When you can do this:
@@ -29,8 +31,12 @@ WHERE id = :id
 
 ```js
 // something.js
-var db = puresql.loadQueries('user.sql')
-var query = db.get_user_by_id({id:1}, adapter)
+const db = puresql.loadQueries('user.sql')
+
+async function foo() {
+const rows = await db.get_user_by_id({id:1}, adapter)
+// do something with rows
+}
 ```
 
 ## Installation
@@ -71,37 +77,31 @@ WHERE id = :? OR id = :?
 
 basic.js
 ```js
-'use strict';
+const mysql = require("mysql")
+const puresql = require("puresql")
 
-var mysql = require("mysql")
-var puresql = require("puresql")
-
-// create a connection the adapter will use
-var connection = mysql.createConnection({
+// Create a connection the adapter will use
+const connection = mysql.createConnection({
   host : '192.168.99.100',
   port : 3307,
   user : 'test',
   password : '',
   database : 'test'
 })
-// create the adapter
-var adapter = puresql.adapters.mysql(connection)
+// Create the adapter
+const adapter = puresql.adapters.mysql(connection)
 
-// load our queries
-var queries = puresql.loadQueries("user.sql")
+// Load our queries
+const queries = puresql.loadQueries("user.sql")
 
-// do something
-queries.get_all({}, adapter)
-.then((rows)=>{
-
-  console.log(rows)
-
-})
-.catch((error)=>{
-
-  console.log(error)
-
-})
+// Do something
+async function foo() {
+  const rows = await queries.get_all({}, adapter)
+  rows.map(row => {
+    console.log('Name: ' + row.name)
+  })
+}
+foo()
 ```
 
 ## Parameters
@@ -121,7 +121,7 @@ Named parameters support modifiers. Cheatsheet:
 |$|Object parameter (insert)|:$user{name,rights}|{name:'foo', rights:'bar'}|('foo', 'bar')|Yes|
 |@|Object parameter (update)|:@user{name,rights}|{name:'foo', rights:'bar'}|name = 'foo', rights = 'bar'|Yes|
 |$ or @|Object parameter (schemaless)|:$user|{name:'foo', rights:'bar', somethingElse: 'test'}|('foo', 'bar', 'test')|Yes|
-|*|Conditioned parameter (EXPERIMENTAL)|:\*limit{LIMIT \*}|10|LIMIT 10 (if '\*limit' parameter is not undefined)|No|
+|*|Conditioned parameter|:\*limit{LIMIT \*}|10|LIMIT 10 (if '\*limit' parameter is not undefined)|No|
 |~|Dynamic conditions|:~conditions|see bellow|see bellow|Not applicable|
 
 Named parameter:
@@ -207,24 +207,9 @@ queries.search_users({'~conditions':{
 
 ## ES 6/7
 
-With generators or async/await, we can now take our SQL functions and use them in a sync-like way, avoiding the callback / .then() hell.
+With async/await, we can now take our SQL functions and use them in a sync-like way, avoiding the callback / .then() hell.
 
 ```js
-// ES6 (node.js >4)
-// Use our queries in a generator-based workflow
-co(function*(){
-
-  // Like sync code, but async!
-  var rows = yield queries.get_all({}, adapter)
-  console.log(rows)
-
-})
-.catch((error)=>{
-
-  console.log(error)
-
-})
-
 // ES2015 (node.js >8)
 async function test () {
   const rows = await queries.get_all({}, adapter)
@@ -234,19 +219,17 @@ async function test () {
 
 ## Koa
 
-As Koa uses generator-based workflow by default, puresql works out-of-box there too!
+As Koa (>2.0.0) uses async/await workflow by default, puresql works out-of-box there too!
 
 ```js
-var koa = require("koa")
+const koa = require("koa")
 // Create a simple server
-var app = koa()
+const app = koa()
 
-app.use(function*(){
-
+app.use(async function() {
   // Like sync, but async!
-  var rows = yield queries.get_all({}, adapter)
+  const rows = await queries.get_all({}, adapter)
   this.body = JSON.stringify(rows)
-
 })
 
 app.listen(3000)
@@ -265,7 +248,7 @@ puresql exposes these functions:
 Parses provided file and returns an object literal in {queryName:fn} format.
 
 ```js
-var queries = puresql.loadQueries('user.sql')
+const queries = puresql.loadQueries('user.sql')
 console.log(queries)
 
 /*
@@ -283,7 +266,7 @@ console.log(queries)
 Returns a query function based on the provided string representation.
 
 ```js
-var query = puresql.defineQuery("SELECT * FROM user WHERE id = :id")
+const query = puresql.defineQuery("SELECT * FROM user WHERE id = :id")
 ```
 
 ### puresql.adapters.mysql(mysqlConnection, debugFn)
@@ -295,7 +278,7 @@ Returns a mySQL adapter. Takes connection object from 'mysql' module as paramete
 const mysql = require('mysql')
 const puresql = require('puresql')
 // create a connection the adapter will use
-var connection = mysql.createConnection({
+const connection = mysql.createConnection({
   host : '192.168.99.100',
   port : 3307,
   user : 'test',
@@ -303,7 +286,7 @@ var connection = mysql.createConnection({
   database : 'test'
 })
 // create the adapter
-var adapter = puresql.adapters.mysql(connection)
+const adapter = puresql.adapters.mysql(connection)
 ```
 
 This adapter can optionally take debugFn function as a parameter. This function will receive the processed query before it runs.
@@ -325,8 +308,8 @@ Returns an SQLite adapter. Takes a db object from 'sqlite3' module as parameter.
 const sqlite3 = require('sqlite3')
 const puresql = require('puresql')
 // create the db adapter will use
-var db = new sqlite3.Database(':memory:')
-var adapter = puresql.adapters.sqlite(db)
+const db = new sqlite3.Database(':memory:')
+const adapter = puresql.adapters.sqlite(db)
 ```
 
 This adapter can optionally take debugFn function as a parameter. This function will receive the processed query before it runs.
@@ -343,7 +326,7 @@ const puresql = require('puresql')
 mssql.connect(CREDENTIALS)
 .then(function () {
   // create the adapter
-  var adapter = puresql.adapters.mssql(mssql)
+  const adapter = puresql.adapters.mssql(mssql)
 })
 ```
 
