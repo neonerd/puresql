@@ -318,6 +318,8 @@ This adapter can optionally take debugFn function as a parameter. This function 
 
 Returns a SQL Server adapter. Takes a connection object from 'mssql' module as parameter.
 
+Note: The mssql adapter currently only works with mssql version 3.x.x. The newest 4.x.x version is currently not supported.
+
 ```js
 // dependencies
 const mssql = require('mssql')
