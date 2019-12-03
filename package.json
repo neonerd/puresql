@@ -1,6 +1,6 @@
 {
   "name": "puresql",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "description": "SQL library for node.js inspired by Clojure's yesql",
   "engines": {
     "node": ">= 6.0.0"
