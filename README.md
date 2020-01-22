@@ -241,7 +241,7 @@ puresql automatically escapes the provided parameters using the adapter's escape
 
 ## Database support
 
-puresql support provides its own default adapters for MySQL (MariaDB), PostgreSQL, MS SQL Server and sqlite. They are accessible through puresql.adapter.X functions as described below.
+puresql provides its own default adapters for MySQL (MariaDB), PostgreSQL, MS SQL Server and sqlite. They are accessible through puresql.adapter.X functions as described below.
 
 ### puresql.adapters.mysql(mysqlConnection, debugFn)
 
