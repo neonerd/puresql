@@ -6,7 +6,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/neonerd/puresql/badge.svg?branch=master)](https://coveralls.io/github/neonerd/puresql?branch=master)
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
-puresql is an ES6/7 ready SQL library for node.js, heavily inspired by Clojure's [yesql](https://github.com/krisajenkins/yesql).
+puresql is a SQL library for node.js, heavily inspired by Clojure's [yesql](https://github.com/krisajenkins/yesql). It supports *MySQL*, *MariaDB*, *PostgreSQL*, *MS SQL Server* and *SQLite* from the box.
 
 Note: This README is aimed at Node 8.0.0 and higher and does not contain examples for generator-based workflow. See README_OLD.md for the previous version of documentation.
 
@@ -239,35 +239,9 @@ app.listen(3000)
 
 puresql automatically escapes the provided parameters using the adapter's escape function. The bundled adapters all use underlying drivers to escape safely. You should pay attention to properly implementing escaping when providing your own adapter.
 
-## API
+## Database support
 
-puresql exposes these functions:
-
-### puresql.loadQueries(filePath)
-
-Parses provided file and returns an object literal in {queryName:fn} format.
-
-```js
-const queries = puresql.loadQueries('user.sql')
-console.log(queries)
-
-/*
-{
-  get_by_id : fn,
-  get_all : fn,
-  get_by_ids : fn,
-  get_or : fn
-}
-*/
-```
-
-### puresql.defineQuery(str)
-
-Returns a query function based on the provided string representation.
-
-```js
-const query = puresql.defineQuery("SELECT * FROM user WHERE id = :id")
-```
+puresql support provides its own default adapters for MySQL (MariaDB), PostgreSQL, MS SQL Server and sqlite. They are accessible through puresql.adapter.X functions as described below.
 
 ### puresql.adapters.mysql(mysqlConnection, debugFn)
 
@@ -352,6 +326,36 @@ pg.connect((err) => {
 ```
 
 This adapter can optionally take debugFn function as a parameter. This function will receive the processed query before it runs.
+
+## API
+
+puresql exposes these functions:
+
+### puresql.loadQueries(filePath)
+
+Parses provided file and returns an object literal in {queryName:fn} format.
+
+```js
+const queries = puresql.loadQueries('user.sql')
+console.log(queries)
+
+/*
+{
+  get_by_id : fn,
+  get_all : fn,
+  get_by_ids : fn,
+  get_or : fn
+}
+*/
+```
+
+### puresql.defineQuery(str)
+
+Returns a query function based on the provided string representation.
+
+```js
+const query = puresql.defineQuery("SELECT * FROM user WHERE id = :id")
+```
 
 ### puresql.adapters.test()
 
