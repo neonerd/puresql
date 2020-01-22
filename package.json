@@ -7,9 +7,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive",
-    "coverage": "nyc --reporter=lcov npm run test",
-    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "test": "nyc mocha --recursive && nyc report --reporter=text-lcov",
+    "coveralls": "coveralls"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
