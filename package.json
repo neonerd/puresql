@@ -6,6 +6,10 @@
     "node": ">= 6.0.0"
   },
   "types": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neonerd/puresql.git"
+  },
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --recursive --exit",
