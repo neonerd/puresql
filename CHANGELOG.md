@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.9.0
+
+- added TypeScript definition file (credit to Pedro Prado)
 ## 1.5.0
 
 - update modifier now correctly escapes identifiers
