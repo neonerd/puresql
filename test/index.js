@@ -173,15 +173,15 @@ describe('file parser', () => {
     let queries = file.parseFile(FILE_SQL_MULTIPLE)
 
     expect(queries).to.be.an('object')
-    expect(queries.get_by_id).to.equal('SELECT *\nFROM user\nWHERE id = :id')
-    expect(queries.get_all).to.equal('SELECT *\nFROM user')
-    expect(queries.get_with_comment).to.equal('SELECT *\n-- here I do something\nFROM user\n-- another comment\n-- breaking comment with name: something\nWHERE id IN :ids')
+    expect(queries.get_by_id).to.equal('SELECT *\r\nFROM user\r\nWHERE id = :id')
+    expect(queries.get_all).to.equal('SELECT *\r\nFROM user')
+    expect(queries.get_with_comment).to.equal('SELECT *\r\n-- here I do something\r\nFROM user\r\n-- another comment\r\n-- breaking comment with name: something\r\nWHERE id IN :ids')
   })
 
   it('should process single command file correctly', () => {
     let queries = file.parseFile(FILE_SQL_SINGLE)
     expect(queries).to.be.an('object')
-    expect(queries.single).to.equal('SELECT *\nFROM user')
+    expect(queries.single).to.equal('SELECT *\r\nFROM user')
   })
 
   it('should throw an error with improperly formatted file', () => {
