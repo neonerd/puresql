@@ -165,6 +165,11 @@ describe('query parser', () => {
     ).to.equal('SELECT * FROM user ORDER BY id ')
   })
 
+  it('should preserve parameter\'s $$', () => {
+    expect(
+      parser.parseQuery({'str': 'My string contain $$'}, 'SELECT \':str\';', adapter)
+    ).to.equal('SELECT \'My string contain $$\';')
+  })
 })
 
 // FILE PARSER
