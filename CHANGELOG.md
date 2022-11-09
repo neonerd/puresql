@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.10.0
+
+- fixed special cases in string replacement (credit to Pedro Prado)
+
 ## 1.9.0
 
 - added TypeScript definition file (credit to Pedro Prado)
